@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
+import Quotes from "./components/Quotes";
 import { Loader } from "react-feather";
 import "./App.css";
 
@@ -33,7 +34,7 @@ function App() {
   return (
     <div className='App'>
       <Header />
-      <main>{loading ? <Loader /> : JSON.stringify(quotes)}</main>
+      <main>{loading ? <Loader /> : <Quotes quotes={quotes} />}</main>
       <Footer />
     </div>
   );
