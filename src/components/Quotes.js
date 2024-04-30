@@ -1,12 +1,12 @@
 import React from "react"; 
 import QuoteCard from "./QuoteCard";
 
-const Quotes = () => {
+function Quotes ({ quotes }) => {
     return (
-        <section className="all-quotes">
-            <div className="quotes">
-                <div className="wrapper">
-                {Quotes.map((quote) => (
+        <section className='all-quotes'>
+            <div className='quotes'>
+                <div className=' quotes wrapper'>
+                {quotes.map((quote) => (
                     <QuoteCard key={quote.id} quote={quote} />
                 ))}
                 </div>
