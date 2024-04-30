@@ -1,8 +1,9 @@
 import { useState, useEffect } from "react";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
-import Quotes from "./components/Quotes";
 import { Loader } from "react-feather";
+import Quotes from "./components/Quotes";
+
 import "./App.css";
 
 function App() {
@@ -19,17 +20,16 @@ function App() {
       const response = await fetch(quotesUrl);
       const results = await response.json();
       setQuotes(results)
-    }catch(e){
-      console.log("Oh no! Error!", e)
+    }catch (error){
+      console.log("Oh no! Error!", error)
     }
     setLoading(false);
-  }
+  };
 
   useEffect(() => {
     fetchQuotes();
   }, []);
 
-  console.log(quotes);
 
   return (
     <div className='App'>
