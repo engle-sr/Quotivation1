@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
+import Message from "./components/Message";
 import { Loader } from "react-feather";
 import Quotes from "./components/quotes/Quotes";
 import FavoriteQuotes from "./components/quotes/FavoriteQuotes";
@@ -12,6 +13,8 @@ function App() {
   const [loading, setLoading] = useState(false);
   const [category, setCategory] = useState("All");
   const [favoriteQuotes, setFavoriteQuotes] = useState([]);
+  const [messageText, setMessageText] = useState("");
+  const [showMessage, setShowMessage] = useState(false);
 
   const maxFaves = 3;
   const quotesUrl =
@@ -49,13 +52,20 @@ function App() {
       const alreadyFavorite = favoriteQuotes.find((favorite) => favorite.id === selectedQuote.id);
 
       if (alreadyFavorite) {
-        console.log("This quote has already been selected as a FAVORITE.");
+        setMessageText("This quote has already been selected as a FAVORITE.");
+        setShowMessage(true);
       } else if (favoriteQuotes.length < maxFaves) {
         setFavoriteQuotes([...favoriteQuotes, selectedQuote]);
-        console.log("Added to FAVORITES");
+        setMessageText("Added to FAVORITES");
+        setShowMessage(true);
       } else {
-        console.log("Max number of FAVORITES quotes has been reached.  Please delete a quote to add something new.");
+        setMessageText("Max number of FAVORITES quotes has been reached.  Please delete a quote to add something new.");
+        setShowMessage(true);
       } 
+  };
+
+  const removeMessage = () => {
+    setShowMessage(false);
   };
 
   const removeFromFavorites = (quoteId) => {
@@ -66,6 +76,7 @@ function App() {
 return (
     <div className='App'>
       <Header />
+      { showMessage && <Message messageText={messageText} removeMessage={removeMessage} />}
       <main>
         <FavoriteQuotes favoriteQuotes={favoriteQuotes} maxFaves={maxFaves} removeFromFavorites={removeFromFavorites} />
         {loading ? (
